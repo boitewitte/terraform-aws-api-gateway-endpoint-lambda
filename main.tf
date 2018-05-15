@@ -84,6 +84,7 @@ module "lambda" {
   memory_size             = "${var.lambda_memory_size}"
   timeout                 = "${var.lambda_timeout}"
   execution_policies      = ["${var.lambda_execution_policies}"]
+  execution_policies_count  = "${var.lambda_execution_policies_count}"
 
   environment_variables   = "${merge(module.label.tags, var.lambda_environment_variables)}"
   dead_letter_config      = "${var.lambda_dead_letter_config}"

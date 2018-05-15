@@ -136,6 +136,12 @@ variable "lambda_execution_policies" {
   default = []
 }
 
+variable "lambda_execution_policies_count" {
+  type = "string"
+  description = "Workaround for list of resources count"
+  default = "0"
+}
+
 variable "lambda_vpc_subnet_ids" {
   type = "list"
   description = "A list of subnet IDs associated with the Lambda function."
