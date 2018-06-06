@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration" "this" {
   depends_on              = ["aws_api_gateway_resource.this", "aws_api_gateway_method.this_auth", "aws_api_gateway_method.this_no_auth"]
   rest_api_id             = "${var.api_id}"
   resource_id             = "${aws_api_gateway_resource.this.id}"
-  http_method             = "${var.http_method}"
+  http_method             = "${element(concat(aws_api_gateway_method.this_auth.*.http_method, aws_api_gateway_method.this_no_auth.*.http_method, list("")), 0)}"
 
   integration_http_method = "POST"
   type                    = "AWS"

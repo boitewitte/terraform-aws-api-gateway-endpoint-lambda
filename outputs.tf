@@ -11,5 +11,5 @@ output "endpoint_path" {
 }
 
 output "http_method" {
-  value = "${element(concat(aws_api_gateway_method.this_auth.*.http_method, aws_api_gateway_method.this_no_auth.*.http_method, list("")), 0)}"
+  value = "${aws_api_gateway_integration.this.http_method}"
 }
