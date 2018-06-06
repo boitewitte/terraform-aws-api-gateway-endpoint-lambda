@@ -71,7 +71,7 @@ resource "aws_lambda_permission" "this" {
 }
 
 module "lambda" {
-  source                  = "git@github.com:boitewitte/terraform-aws-lambda.git"
+  source                  = "git::https://github.com/boitewitte/terraform-aws-lambda.git"
 
   namespace               = "${var.namespace}"
   environment             = "${var.environment}"
