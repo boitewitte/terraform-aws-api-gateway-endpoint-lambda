@@ -42,6 +42,13 @@ variable "parent_resource_id" {
 variable "endpoint" {
   type = "string"
   description = "The last path segment of this API resource."
+  default = ""
+}
+
+variable "endpoint_id" {
+  type = "string"
+  description = "Endpoint ID for the API resource (when endpoint is not set)"
+  default = ""
 }
 
 variable "endpoint_id" {

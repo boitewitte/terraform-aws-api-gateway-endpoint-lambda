@@ -9,6 +9,7 @@ module "label" {
 }
 
 resource "aws_api_gateway_resource" "this" {
+  count               = "${var.endpoint != "" ? 1 : 0}"
   rest_api_id         = "${var.api_id}"
   parent_id           = "${var.parent_resource_id}"
 
@@ -20,7 +21,7 @@ resource "aws_api_gateway_method" "this_auth" {
   count               = "${var.http_method != "" && var.authorizer_id != "" ? 1 : 0}"
 
   rest_api_id         = "${var.api_id}"
-  resource_id         = "${aws_api_gateway_resource.this.id}"
+  resource_id         = "${var.endpoint != "" ? aws_api_gateway_resource.this.id : var.endpoint_id}"
   http_method         = "${var.http_method}"
   
   authorization       = "CUSTOM"
