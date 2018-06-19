@@ -68,7 +68,7 @@ resource "aws_lambda_permission" "this" {
   principal               = "apigateway.amazonaws.com"
 
   # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  source_arn              = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${var.api_id}/*/${var.http_method}${aws_api_gateway_resource.this.path}"
+  source_arn              = "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:${var.api_id}/*/${var.http_method}${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.path_part, list("")), 0) : var.endpoint_path}"
 }
 
 module "lambda" {
