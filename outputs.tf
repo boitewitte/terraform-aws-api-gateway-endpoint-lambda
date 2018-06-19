@@ -3,11 +3,11 @@ output "api_id" {
 }
 
 output "endpoint_id" {
-  value = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.id, 0) : var.endpoint_id}"
+  value = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.id, list("")), 0) : var.endpoint_id}"
 }
 
 output "endpoint_path" {
-  value = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.path_part, 0) : var.endpoint_path}"
+  value = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.path_part, list("")), 0) : var.endpoint_path}"
 }
 
 output "http_method" {
