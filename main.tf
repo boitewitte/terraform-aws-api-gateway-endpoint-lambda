@@ -21,7 +21,7 @@ resource "aws_api_gateway_method" "this_auth" {
   count               = "${var.http_method != "" && var.authorizer_id != "" ? 1 : 0}"
 
   rest_api_id         = "${var.api_id}"
-  resource_id         = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.id, 0) : var.endpoint_id}"
+  resource_id         = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.id, list("")), 0) : var.endpoint_id}"
   http_method         = "${var.http_method}"
   
   authorization       = "CUSTOM"
@@ -36,7 +36,7 @@ resource "aws_api_gateway_method" "this_no_auth" {
   count               = "${var.http_method != "" && var.authorizer_id == "" ? 1 : 0}"
 
   rest_api_id         = "${var.api_id}"
-  resource_id         = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.id, 0) : var.endpoint_id}"
+  resource_id         = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.id, list("")), 0) : var.endpoint_id}"
   http_method         = "${var.http_method}"
   
   authorization       = "NONE"
@@ -49,7 +49,7 @@ resource "aws_api_gateway_method" "this_no_auth" {
 resource "aws_api_gateway_integration" "this" {
   depends_on              = ["aws_api_gateway_resource.this", "aws_api_gateway_method.this_auth", "aws_api_gateway_method.this_no_auth"]
   rest_api_id             = "${var.api_id}"
-  resource_id             = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.id, 0) : var.endpoint_id}"
+  resource_id             = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.id, list("")), 0) : var.endpoint_id}"
   http_method             = "${element(concat(aws_api_gateway_method.this_auth.*.http_method, aws_api_gateway_method.this_no_auth.*.http_method, list("")), 0)}"
 
   integration_http_method = "POST"
@@ -103,7 +103,7 @@ resource "aws_api_gateway_method_settings" "this" {
   rest_api_id = "${var.api_id}"
   stage_name  = "${var.environment}"
 
-  method_path = "${var.endpoint != "" ? element(aws_api_gateway_resource.this.*.path_part, 0) : var.endpoint_path}/${var.http_method}"
+  method_path = "${var.endpoint != "" ? element(concat(aws_api_gateway_resource.this.*.path_part, list("")), 0) : var.endpoint_path}/${var.http_method}"
 
   settings    = "${var.method_settings}"
 }
