@@ -46,14 +46,14 @@ variable "endpoint" {
 }
 
 variable "endpoint_id" {
-  type = "string"
-  description = "Endpoint ID for the API resource (when endpoint is not set)"
-  default = ""
-}
-
-variable "endpoint_id" {
   description = "The Resource ID for the endpoint, if set no endpoint will be generated (default is false)"
   default = false
+}
+
+variable "endpoint_path" {
+  type = "string"
+  description = "The Resource path for the endpoint."
+  default = ""
 }
 
 variable "http_method" {
